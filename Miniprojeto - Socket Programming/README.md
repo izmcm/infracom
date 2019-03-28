@@ -7,10 +7,10 @@ $ python3 server.py
 ## 2. Rodar client
 
 #### Argumentos
--c: Comando que será realizado. Pode ser GET ou POST.
--f: Em GET, arquivo que será transferido (binário ou texto). Em POST, texto que será gravado no arquivo.
--t: Nome do novo arquivo.
--h: Ajuda.
+-c: Comando que será realizado. Pode ser GET ou POST.   
+-f: Em GET, arquivo que será transferido (binário ou texto). Em POST, texto que será gravado no arquivo.   
+-t: Nome do novo arquivo.   
+-h: Ajuda.   
 
 ### GET com texto
 ```
