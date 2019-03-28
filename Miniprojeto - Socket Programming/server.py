@@ -38,6 +38,8 @@ def main():
                 elif command == "POST":
                     connection_socket.send(request.encode()) # send message
                     print("Success")
+                else:
+                    print("Command not supported")
 
     return 0
 

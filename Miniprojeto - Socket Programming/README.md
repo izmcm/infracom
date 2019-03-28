@@ -1,12 +1,18 @@
-# To execute:
-
-### Run server
+# Executar
+## 1. Rodar server
 ```
 $ python3 server.py
 ```
 
-### Run client 
-#### GET com texto
+## 2. Rodar client
+
+#### Argumentos
+-c: Comando que será realizado. Pode ser GET ou POST.
+-f: Em GET, arquivo que será transferido (binário ou texto). Em POST, texto que será gravado no arquivo.
+-t: Nome do novo arquivo.
+-h: Ajuda.
+
+### GET com texto
 ```
 $ python3 client.py -c GET -f file.txt -t outputFile.txt
 ```
