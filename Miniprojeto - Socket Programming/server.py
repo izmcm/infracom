@@ -20,23 +20,37 @@ def main():
             # connection, client_address = server_socket.accept()
             with server_socket.accept()[0] as connection_socket:
                 # receive --command and --content
-                message = connection_socket.recv(1024).decode('ascii')
+                message = connection_socket.recv(1024).decode()
                 print("I receive " + message)
 
                 command = message.split('-')[0]
+                
+                if command == "GET" or command == "GETPROG":
+                    idx = len(command) + 1
+                    request = message[idx:]
+                elif command ==  "POST":
+                    toFile = message.split('-')[1]
+                    idx = len(command) + len(toFile) + 2
+                    request = message[idx:]
+                    print("File to save: " + toFile)
 
-                idx = len(command) + 1
-                request = message[idx:]
+                print("Command: " + command)
+                print("Request: " + request)
 
-                print("Command:" + command)
-                print("Request:" + request)
-
-                if command == "GET":
+                if command == "GET" or command == "GETPROG":
                     reply = http_handle(request) # read archive and returns its content
                     connection_socket.send(reply) # send message
                     print("Success")
                 elif command == "POST":
-                    connection_socket.send(request.encode()) # send message
+                    path = "filesPOST/" + toFile
+                    
+                    with open(path, "wb") as f: # save contents in output files
+                        f.write(request.encode())
+
+                        while request:
+                            request = connection_socket.recv(1024)
+                            f.write(request)
+
                     print("Success")
                 else:
                     print("Command not supported")
@@ -51,6 +65,7 @@ def http_handle(request_string):
     with open(request_string, 'rb') as file:
         contents = file.read()
 
+    print(contents)
     return contents
 
 if __name__ == "__main__":

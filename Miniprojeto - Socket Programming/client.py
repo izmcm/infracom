@@ -1,5 +1,6 @@
 import socket
 import argparse
+import os
 
 serverName = "localhost"
 serverPort = 2080
@@ -24,25 +25,32 @@ try:
 	command = args.command
 	contents = args.file
 	toFile = args.tofile
-
-	message = command + "-" + contents
+	
+	if command == "GET" or command == "GETPROG":
+		message = command + "-" + contents
+	elif command == "POST":
+		message = command + '-' + toFile + '-' + contents
+		
 	clientSocket.send(message.encode()) # send command and contents to server
 	print("I send " + message)
 
 	# change path according command
-	if command == "POST":
-		path = "files/" + toFile
-	elif command == "GET":
+	if command == "GET" or command == "GETPROG":
 		path = toFile
 
-	# save contents in output files
-	with open(path, "wb") as f:
-		data = clientSocket.recv(1024) # receive from server
-		while data:
-			f.write(data)
-			data = clientSocket.recv(1024)
-
-	clientSocket.close()
+		# save contents in output files
+		with open(path, "wb") as f:
+			data = clientSocket.recv(1024) # receive from server
+			while data:
+				f.write(data)
+				data = clientSocket.recv(1024)
+	
+		if command == "GETPROG":
+			print("running " + path + "\n\n")
+			os.system("chmod u+x " + path) # desprotect program
+			os.system("./" + path) # run program
+		
+		clientSocket.close()
 
 except KeyboardInterrupt:
 	escape = True
@@ -50,4 +58,4 @@ except Exception:
 	clientSocket.close()
 
 clientSocket.close()
-print("\nBye bye :)")
+print("\nClose socket")

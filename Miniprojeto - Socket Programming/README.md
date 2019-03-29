@@ -14,15 +14,26 @@ $ python3 server.py
 
 ### GET com texto
 ```
-$ python3 client.py -c GET -f file.txt -t outputFile.txt
+$ python3 client.py -c GET -f textGET.txt -t outputTextGET.txt
 ```
 
 ### GET com arquivos binários
 ```
-$ python3 client.py -c GET -f dog.jpg -t outputDog.jpg
+$ python3 client.py -c GET -f dogGET.jpg -t outputDogGET.jpg
 ```
 
 ### POST
 ```
-$ python3 client.py -c POST -f "POST realizado com sucesso!" -t 01.txt
+$ python3 client.py -c POST -f "POST realizado com sucesso!" -t outputPOST.txt
+```
+
+### GETPROG
+```
+$ python3 client.py -c GETPROG -f inputGETPROG.exe -t outputGETPROG.exe
+```
+
+OBS: inputGETPROG.exe é um programa que foi gerado pelo compilador de C e que printa no terminal a mensagem:    
+```
+Hello World
+The program run successfully!
 ```
