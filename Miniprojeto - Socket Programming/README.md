@@ -12,12 +12,10 @@ $ python3 server.py
 -t: Nome do novo arquivo.   
 -h: Ajuda.   
 
-### GET com texto
+### GET
 ```
 $ python3 client.py -c GET -f textGET.txt -t outputTextGET.txt
 ```
-
-### GET com arquivos binários
 ```
 $ python3 client.py -c GET -f dogGET.jpg -t outputDogGET.jpg
 ```
