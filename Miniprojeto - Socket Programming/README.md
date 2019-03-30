@@ -1,4 +1,3 @@
-# Executar
 ## 1. Rodar server
 ```
 $ python3 server.py
