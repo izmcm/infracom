@@ -28,7 +28,7 @@ Há duas formas de mover dados numa rede de links, elas são:
 ### ISP e IXP
 Provedores de acesso à internet que precisam se conectar para que exista transmissão de dados entre eles e, para isso e para tornar essa ligação mais eficiente (que todos não precisem se conectar com todos), há um ISP Regionais que conecta todos os ISPs de uma região. Para que os ISPs Regionais se conectem existe o IXP que funciona como um ponto de troca de informação entre os ISPs. Apesar de concorrentes, os ISPs precisam se conectar porque ninguém vai querer uma internet que só funcione para pessoas dentro do seu ISP.
 
-### Continhas (os delays de um nó)
+### Continhas (os delays e otras cositas más)
 * **Processamento**: tempo de checagem de erro dos bits e determinação do caminho do pacote, geralmente é menor que milissegundos.
 * **Fila**: tempo de espera na fila para transmissão, depende do congestionamento no roteador. 
 
@@ -36,3 +36,12 @@ Provedores de acesso à internet que precisam se conectar para que exista transm
 
 * **Transmissão**: tempo que cada bit de um pacote leva para sair do roteador para o link. Seja um pacote de L bits sendo transmitido a uma taxa de transmissão de R bits/sec, o delay de transmissão do pacote será de **L/R** segundos.
 * **Propagação**: tempo de viagem do pacote até o próximo nó. Seja D a extensão do link e S a velocidade de propagação no fio (depende do material), o delay de propagação do pacote será **D/S** segundos.
+
+* **Throughput**: taxa (bits/unidade de tempo) em que os bits são transferidos do remetente para o receptor. É calculado como o mínimo das taxas: T = min(Rs, Rc, ...)
+
+### Camadas
+1. **Aplicação**: HTTP, FTP, SMTP
+2. **Transporte**: TCP, UDP
+3. **Rede**: IP, protocolos de roteamento
+4. **Enlace**: Wi-Fi, Ethernet
+5. **Física**: bits no fio
