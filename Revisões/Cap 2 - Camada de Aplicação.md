@@ -41,26 +41,26 @@
 
 * **Cache**: o client pede o objeto ao cache: se o cache possui o objeto já retorna pro client, se ele não possui, pede para o server. O cache funciona como client e server ao mesmo tempo e existe para diminuir o tempo de resposta e reduzir o tráfico para o link original.
 
-Para ver a eficiência de um cache, vamos assumir:
-    - um objeto de 0.1 Mbits
-    - uma taxa de request para o server original de 15 requests/sec
-    - uma taxa de transmissão pro browser de 1.50 Mbps
-    - RTT do roteador para o server original de 2 segundos
-    - uma taxa de acesso ao link de 1.54 Mbps
-    - uma taxa de acesso a LAN de 1000 Mbps
+Para ver a eficiência de um cache, vamos assumir:      
+    - um objeto de 0.1 Mbits        
+    - uma taxa de request para o server original de 15 requests/sec       
+    - uma taxa de transmissão pro browser de 1.50 Mbps        
+    - RTT do roteador para o server original de 2 segundos       
+    - uma taxa de acesso ao link de 1.54 Mbps       
+    - uma taxa de acesso a LAN de 1000 Mbps       
 
-SEM CACHE: 
-    - **utilização da LAN** = (taxa de request para o server original * tamanho do request)/taxa de acesso a LAN = (15 requests/sec * 0.1Mbit)/1000 Mbps = 15%
-Como a utilização da LAN é baixa, o delay que ela causa é desprezado.
-    - **utilização do link** = (taxa de request para o server original * tamanho do request)/taxa de acesso ao link = (15 requests/sec * 0.1Mbit)/1.54 Mbps = 97%
-Como a utilização do link é muito alta, o delay é exponencial, chegando a casa dos minutos.
+SEM CACHE:        
+    - **utilização da LAN** = (taxa de request para o server original * tamanho do request)/taxa de acesso a LAN = (15 requests/sec * 0.1Mbit)/1000 Mbps = 15%     
+Como a utilização da LAN é baixa, o delay que ela causa é desprezado.       
+    - **utilização do link** = (taxa de request para o server original * tamanho do request)/taxa de acesso ao link = (15 requests/sec * 0.1Mbit)/1.54 Mbps = 97%      
+Como a utilização do link é muito alta, o delay é exponencial, chegando a casa dos minutos.       
 
-No fim, o tempo total será = delay da internet (2 sec) + delay da LAN (desprezado) + delay do link (minutos).
-A única forma de resolver o problema do altíssimo delay do link sem o cache é aumentando a taxa de acesso ao link em 100x, o que levaria seu tempo para milissegundos (desprezado), mas isso é extremamente caro.
+No fim, o tempo total será = delay da internet (2 sec) + delay da LAN (desprezado) + delay do link (minutos).     
+A única forma de resolver o problema do altíssimo delay do link sem o cache é aumentando a taxa de acesso ao link em 100x, o que levaria seu tempo para milissegundos (desprezado), mas isso é extremamente caro.       
 
-COM CACHE:
-Considerando um cache com taxa de acerto de 40%, pode-se dizer que cerca de 40% dos pedidos serão atendidos quase que instataneamente por causa da alta taxa de acesso da LAN. Em 60% dos casos apenas será necessário recorrer ao servidor original:
-    - **utilização do link** = (taxa de request para o server original * tamanho do request * taxa de erro do cache)/taxa de acesso ao link = (15 requests/sec * 0.1Mbit * 0.6)/1.54 Mbps = 58%
-Uma utilização de 58% do link faz com que o delay seja desconsiderado.
+COM CACHE:     
+Considerando um cache com taxa de acerto de 40%, pode-se dizer que cerca de 40% dos pedidos serão atendidos quase que instataneamente por causa da alta taxa de acesso da LAN. Em 60% dos casos apenas será necessário recorrer ao servidor original:      
+    - **utilização do link** = (taxa de request para o server original * tamanho do request * taxa de erro do cache)/taxa de acesso ao link = (15 requests/sec * 0.1Mbit * 0.6)/1.54 Mbps = 58%       
+Uma utilização de 58% do link faz com que o delay seja desconsiderado.       
 
-No fim, o tempo total será = 0.6*2 sec = 1.2 segundos, já que o server original será acionado apenas 60% das vezes.
+No fim, o tempo total será = 0.6*2 sec = 1.2 segundos, já que o server original será acionado apenas 60% das vezes.      
