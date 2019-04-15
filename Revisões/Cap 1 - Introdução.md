@@ -37,7 +37,7 @@ Provedores de acesso à internet que precisam se conectar para que exista transm
 * **Transmissão**: tempo que cada bit de um pacote leva para sair do roteador para o link. Seja um pacote de L bits sendo transmitido a uma taxa de transmissão de R bits/sec, o delay de transmissão do pacote será de **L/R** segundos.
 * **Propagação**: tempo de viagem do pacote até o próximo nó. Seja D a extensão do link e S a velocidade de propagação no fio (depende do material), o delay de propagação do pacote será **D/S** segundos.
 
-* **Throughput**: taxa (bits/unidade de tempo) em que os bits são transferidos do remetente para o receptor. É calculado como o mínimo das taxas: T = min(Rs, Rc, ...)
+* **Throughput**: taxa (bits/unidade de tempo) em que os bits são transferidos do remetente para o receptor, é a quantidade de pacotes aproveitados. É calculado como o mínimo das taxas: T = min(Rs, Rc, ...)
 
 ### Camadas
 1. **Aplicação**: HTTP, FTP, SMTP
