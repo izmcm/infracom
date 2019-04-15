@@ -22,11 +22,12 @@
 
 * **UDP**: streaming, jogos online
     - Não fornece nada que o TCP fornece (controle de fluxo, de congestionamento, transporte confiável)
+    - Não faz handshaking entre client e server
     - É rápido!!!!!!
 
 * **SSL**: providencia segurança ao TCP
 
-### WEB
+### WEB e seus protocolos
 * **HTTP**: protocolo do modelo client-server que é usado para acessar páginas na web. 
     - Client inicia uma conexão TCP (cria um socket) com o server através da porta 80
     - Server aceita conexão TCP
@@ -51,10 +52,10 @@ Para ver a eficiência de um cache, vamos assumir:
 
 SEM CACHE:        
        
-- **utilização da LAN** = (taxa de request para o server original * tamanho do request)/taxa de acesso a LAN = (15 requests/sec * 0.1Mbit)/1000 Mbps = 15%. Como a utilização da LAN é baixa, o delay que ela causa é desprezado. 
+- utilização da LAN = (taxa de request para o server original * tamanho do request)/taxa de acesso a LAN = (15 requests/sec * 0.1Mbit)/1000 Mbps = 15%. Como a utilização da LAN é baixa, o delay que ela causa é desprezado. 
 
 
-- **utilização do link** = (taxa de request para o server original * tamanho do request)/taxa de acesso ao link = (15 requests/sec * 0.1Mbit)/1.54 Mbps = 97%. Como a utilização do link é muito alta, o delay é exponencial, chegando a casa dos minutos.       
+- utilização do link = (taxa de request para o server original * tamanho do request)/taxa de acesso ao link = (15 requests/sec * 0.1Mbit)/1.54 Mbps = 97%. Como a utilização do link é muito alta, o delay é exponencial, chegando a casa dos minutos.       
 
 
 **No fim, o tempo total será = delay da internet (2 sec) + delay da LAN (desprezado) + delay do link (minutos).**
@@ -66,7 +67,22 @@ COM CACHE:
 
 Considerando um cache com taxa de acerto de 40%, pode-se dizer que cerca de 40% dos pedidos serão atendidos quase que instataneamente por causa da alta taxa de acesso da LAN. Em 60% dos casos apenas será necessário recorrer ao servidor original:  
 
-- **utilização do link** = (taxa de request para o server original * tamanho do request * taxa de erro do cache)/taxa de acesso ao link = (15 requests/sec * 0.1Mbit * 0.6)/1.54 Mbps = 58%. Uma utilização de 58% do link faz com que o delay seja desconsiderado.       
+- utilização do link = (taxa de request para o server original * tamanho do request * taxa de erro do cache)/taxa de acesso ao link = (15 requests/sec * 0.1Mbit * 0.6)/1.54 Mbps = 58%. Uma utilização de 58% do link faz com que o delay seja desconsiderado.       
 
 
 **No fim, o tempo total será = 0.6*2 sec = 1.2 segundos, já que o server original será acionado apenas 60% das vezes.**
+
+* **SMTP**: protocolo usado na transferência de e-mails. Usa TCP porta 25 para garantir a confiabilidade de entrega dos dados. Client envia mensagem para seu servidor de email, servidor envia para o servidor de destino. Passagem do server para o client de destino por POP ou IMAP.
+
+### DNS
+O DNS funciona como um banco de dados distribuido e hierarquizado que liga os IPs aos nomes dos sites. Ser hierarquizado significa que há três níveis de servidores DNS:
+* **Com Autoridade**: são os servidores que possuem os registros originais que associam um nome de site a um IP
+* **TLD**: funciona para redirecionar o client para os DNS com autoridade e são separados de acordo com os dominios de topo (.com, .org, etc)
+* **Raiz**: são 13 espalhados no mundo e estão no topo da hierarquia. Tem como função retornar uma lista de servidores TLD apropriados.
+
+Os servidores DNS podem sofrer diversos ataques, entre eles, ataques DDoS e de redirecionamento.
+
+### Streaming e CDNs
+Uma CDN, ou rede de distribuição de conteúdo, é uma rede distribuída que tem como objetivo acelerar a entrega de conteúdos. A principal técnica usada pelas CDNs é o armazenamento do conteúdo de textos, músicas, vídeos etc em servidores próximos às "bordas" a Internet para que, assim, as solicitações dos usuários possam ser atendidas pelo servidor mais próximo. Outra forma usada pelas CDNs para agilizar a entrega de conteúdos é a otimização de rotas, otimização de conexões TCP e pré-busca.
+
+* **DASH**: uma técnica na qual o servidor divide o arquivo em várias partes menores e cada uma dessas partes é armazenada e codificada em taxas de bits diferentes. Enquanto o conteúdo está sendo reproduzido, o client seleciona automaticamente a próxima parte para baixar e reproduzir com base nas condições atuais da rede para evitar interrupções na transmissão do streaming.
